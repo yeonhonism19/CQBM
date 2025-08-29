@@ -3,11 +3,13 @@ export interface Project {
   title: string
   client: string
   category: string
+  question?: string
   tags: string[]
   year: number
   duration: string
   featured: boolean
   thumbnail: string
+  videoThumbnail?: string
   challenge: string
   solution: string
   results: string
@@ -22,11 +24,13 @@ export const projects: Project[] = [
     title: '스타트업 브랜드 아이덴티티 구축',
     client: '테크스타트',
     category: '브랜딩',
+    question: '어떻게 하면 스타트업이 기존 대기업과 차별화된 정체성을 가질 수 있을까?',
     tags: ['브랜드 아이덴티티', '로고 디자인', '가이드라인'],
     year: 2024,
     duration: '6주',
     featured: true,
     thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop',
+    videoThumbnail: 'https://vimeo.com/76979871',
     challenge: '테크 스타트업이 투자 유치를 앞두고 전문적이면서도 혁신적인 이미지를 구축해야 했습니다. 기존의 일반적인 테크 기업 이미지에서 벗어나 독창적인 아이덴티티가 필요했습니다.',
     solution: '기술과 인간의 연결을 컨셉으로, 기하학적 형태와 유기적 곡선을 결합한 독특한 로고를 개발했습니다. 네온 블루와 퍼플을 메인 컬러로 사용해 미래지향적 이미지를 구축했습니다.',
     results: '시리즈 A 투자 유치 성공, 브랜드 인지도 300% 상승, 업계 디자인 어워드 수상',
@@ -36,7 +40,8 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&h=800&fit=crop',
       'https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=1200&h=800&fit=crop',
       'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1200&h=800&fit=crop'
-    ]
+    ],
+    videos: ['https://player.vimeo.com/video/76979871?autoplay=1&loop=1&autopause=0&muted=1']
   },
   {
     slug: 'ecommerce-marketing',

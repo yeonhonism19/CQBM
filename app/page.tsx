@@ -1,10 +1,11 @@
 'use client'
 
 import Header from './components/layout/Header'
+import VideoHero from './components/sections/VideoHero'
 import Hero from './components/sections/Hero'
 import ServicesHighlight from './components/sections/ServicesHighlight'
 import About from './components/sections/About'
-import Work from './components/sections/Work'
+import Question from './components/sections/Question'
 import Clients from './components/sections/Clients'
 import Newsletter from './components/sections/Newsletter'
 import Contact from './components/sections/Contact'
@@ -14,10 +15,11 @@ export default function Home() {
   return (
     <main className="relative">
       <Header />
+      <VideoHero />
       <Hero />
       <ServicesHighlight />
       <About />
-      <Work />
+      <Question />
       <Clients />
       <Newsletter />
       <Contact />

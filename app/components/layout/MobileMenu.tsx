@@ -16,14 +16,14 @@ interface MobileMenuProps {
 const menuItems = [
   { href: '/', label: 'Home', isPage: true },
   { href: '/services', label: 'Services', isPage: true },
-  { href: '/work', label: 'Work', isPage: true },
+  { href: '/question', label: 'Question', isPage: true },
   { href: '/about', label: 'About', isPage: true },
   { href: '/#contact', label: 'Contact', isSection: true },
 ]
 
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   const pathname = usePathname()
-  const currentSection = useScrollSpy(['hero', 'about', 'work', 'contact'])
+  const currentSection = useScrollSpy(['hero', 'about', 'question', 'contact'])
 
   useEffect(() => {
     if (isOpen) {
@@ -126,17 +126,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 ))}
               </ul>
 
-              <div className="mt-8 pt-8 border-t">
-                <motion.a
-                  href="/services"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="block w-full bg-red-600 text-white text-center py-3 px-4 rounded-lg font-medium hover:bg-red-700 transition-colors"
-                >
-                  무료 상담 신청
-                </motion.a>
-              </div>
             </nav>
           </motion.div>
         </>

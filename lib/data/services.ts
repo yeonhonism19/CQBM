@@ -13,34 +13,13 @@ export interface Service {
 export const services: Service[] = [
   // Branding Services
   {
-    id: 'logo-design',
-    category: 'branding',
-    title: '로고 디자인',
-    description: '브랜드의 정체성을 담은 독창적이고 기억에 남는 로고를 제작합니다.',
-    features: [
-      '브랜드 리서치 및 분석',
-      '3가지 초안 제공',
-      '무제한 수정 (2주간)',
-      '다양한 포맷 파일 제공'
-    ],
-    process: [
-      '브랜드 분석',
-      '컨셉 개발',
-      '초안 제작',
-      '피드백 및 수정',
-      '최종 납품'
-    ],
-    icon: 'Palette',
-    price: '300만원~',
-    duration: '2-3주'
-  },
-  {
     id: 'brand-identity',
     category: 'branding',
     title: '브랜드 아이덴티티',
     description: '로고부터 색상, 타이포그래피까지 통합적인 브랜드 아이덴티티를 구축합니다.',
     features: [
       '브랜드 전략 수립',
+      '로고 디자인 포함',
       '비주얼 아이덴티티 시스템',
       '브랜드 가이드라인',
       '응용 디자인 템플릿'

@@ -47,7 +47,7 @@ const Header = () => {
             <nav className="hidden md:flex items-center gap-8">
               {[
                 { name: 'Services', href: '/services' },
-                { name: 'Work', href: '/work' },
+                { name: 'Question', href: '/question' },
                 { name: 'About', href: '/about' },
                 { name: 'Contact', href: '/#contact' }
               ].map((item, index) => (
@@ -62,11 +62,15 @@ const Header = () => {
                     className="text-sm font-medium tracking-wide hover:text-red-500 transition-colors"
                     onClick={(e) => {
                       // Contact 섹션은 홈페이지로 이동 후 스크롤
-                      if (item.name === 'Contact' && window.location.pathname === '/') {
+                      if (item.name === 'Contact') {
                         e.preventDefault()
-                        const element = document.getElementById('contact')
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' })
+                        if (window.location.pathname === '/') {
+                          const element = document.getElementById('contact')
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' })
+                          }
+                        } else {
+                          window.location.href = '/#contact'
                         }
                       }
                     }}
@@ -76,18 +80,6 @@ const Header = () => {
                 </motion.div>
               ))}
               
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <Link
-                  href="/services"
-                  className="text-sm font-medium tracking-wide px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-                >
-                  무료 상담
-                </Link>
-              </motion.div>
             </nav>
             
             {/* Mobile menu button */}

@@ -8,7 +8,7 @@ const Contact = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} className="py-32 bg-black text-white">
+    <section id="contact" ref={ref} className="py-32 bg-black text-white">
       <div className="grid-layout max-w-screen-2xl mx-auto px-6">
         <div className="col-span-12">
           {/* Main CTA */}
