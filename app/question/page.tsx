@@ -70,13 +70,13 @@ export default function WorkPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <motion.div
-                key={project.id}
+                key={project.slug}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <Link href={`/work/${project.slug}`}>
+                <Link href={`/question/${project.slug}`}>
                   <div className="relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3]">
                     <img
                       src={project.thumbnail}
@@ -97,7 +97,7 @@ export default function WorkPage() {
                       {project.title}
                     </h3>
                     <p className="text-gray-600 mt-2 line-clamp-2">
-                      {project.description}
+                      {project.question || project.challenge.substring(0, 100) + '...'}
                     </p>
                   </div>
                 </Link>

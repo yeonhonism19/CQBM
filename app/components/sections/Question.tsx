@@ -89,7 +89,7 @@ const Question = () => {
         >
           {filteredProjects.map((project) => (
             <motion.div
-              key={project.id}
+              key={project.slug}
               variants={itemVariants}
               whileHover={{ y: -10 }}
               className="group cursor-pointer"

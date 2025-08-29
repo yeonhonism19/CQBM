@@ -23,8 +23,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <ProjectPageClient 
       project={project}
       relatedProjects={relatedProjects}
-      previous={previous}
-      next={next}
+      previous={previous ?? undefined}
+      next={next ?? undefined}
     />
   )
 }
