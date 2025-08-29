@@ -4,7 +4,6 @@ import Header from './components/layout/Header'
 import VideoHero from './components/sections/VideoHero'
 import Hero from './components/sections/Hero'
 import ServicesHighlight from './components/sections/ServicesHighlight'
-import About from './components/sections/About'
 import Question from './components/sections/Question'
 import Clients from './components/sections/Clients'
 import Newsletter from './components/sections/Newsletter'
@@ -18,7 +17,6 @@ export default function Home() {
       <VideoHero />
       <Hero />
       <ServicesHighlight />
-      <About />
       <Question />
       <Clients />
       <Newsletter />
