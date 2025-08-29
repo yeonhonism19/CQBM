@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/apple-icon.svg',
+  },
+  manifest: '/manifest.json',
   openGraph: {
     title: 'CQBM - 크리에이티브 혁신 마케팅 에이전시',
     description: '창의적인 질문으로 시작하는 브랜딩, 데이터 기반의 전략적 마케팅. CQBM은 고객의 성장을 위한 모든 솔루션을 제공합니다.',

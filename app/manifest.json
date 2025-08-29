@@ -1,0 +1,22 @@
+{
+  "name": "CQBM - Creative Quality Business Model",
+  "short_name": "CQBM",
+  "description": "크리에이티브 혁신 마케팅 에이전시",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#DC2626",
+  "background_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
