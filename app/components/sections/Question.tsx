@@ -87,9 +87,9 @@ const Question = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
-              key={project.slug}
+              key={`project-${project.slug}-${index}`}
               variants={itemVariants}
               whileHover={{ y: -10 }}
               className="group cursor-pointer"
