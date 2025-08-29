@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     // 이메일 전송
     const data = await resend.emails.send({
       from: 'CQBM Contact <onboarding@resend.dev>', // 도메인 인증 전까지는 이 주소를 사용
-      to: ['hello@cqbm.kr'], // 실제 받을 이메일 주소로 변경하세요
+      to: ['cqbm.kr@gmail.com'], // Resend 계정 이메일 (도메인 인증 전까지 임시)
       subject: `새로운 문의: ${name} - ${company || '개인'}`,
       html: `
         <h2>새로운 문의가 접수되었습니다</h2>
