@@ -1,10 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Plus, Edit, Trash2, Upload, X } from 'lucide-react'
+
+// 이 페이지는 동적 렌더링을 사용합니다 (관리자 페이지이므로)
+export const dynamic = 'force-dynamic'
 
 interface Project {
   id: string
@@ -26,31 +29,61 @@ export default function PortfolioManager() {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingProject, setEditingProject] = useState<Project | null>(null)
-  const supabase = createClientComponentClient()
+  const [supabase, setSupabase] = useState<any>(null)
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-    fetchProjects()
+    // Supabase 클라이언트 초기화
+    try {
+      const client = createClient()
+      setSupabase(client)
+    } catch (error) {
+      console.error('Supabase 초기화 오류:', error)
+      setLoading(false)
+      return
+    }
   }, [])
+  
+  useEffect(() => {
+    if (supabase) {
+      checkAuth()
+      fetchProjects()
+    }
+  }, [supabase])
 
   const checkAuth = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
+    if (!supabase) return
+    
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        router.push('/login')
+      }
+    } catch (error) {
+      console.error('인증 확인 오류:', error)
       router.push('/login')
     }
   }
 
   const fetchProjects = async () => {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('order_index', { ascending: true })
+    if (!supabase) return
     
-    if (data) {
-      setProjects(data)
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('order_index', { ascending: true })
+      
+      if (error) {
+        console.error('프로젝트 로드 오류:', error)
+      } else if (data) {
+        setProjects(data)
+      }
+    } catch (error) {
+      console.error('프로젝트 로드 오류:', error)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   const uploadFile = async (file: File, folder: string) => {
