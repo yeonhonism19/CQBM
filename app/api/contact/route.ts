@@ -6,12 +6,12 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 export async function POST(request: Request) {
   try {
-    const { name, email, company, project, budget, message } = await request.json()
+    const { name, email, phone, company, project, budget, message } = await request.json()
 
     // API 키가 없으면 콘솔에만 로그
     if (!resend) {
       console.log('Contact form submission (Resend API key not set):', {
-        name, email, company, project, budget, message
+        name, email, phone, company, project, budget, message
       })
       return NextResponse.json({ 
         success: true, 
@@ -28,6 +28,7 @@ export async function POST(request: Request) {
         <h2>새로운 문의가 접수되었습니다</h2>
         <p><strong>이름:</strong> ${name}</p>
         <p><strong>이메일:</strong> ${email}</p>
+        <p><strong>연락처:</strong> ${phone || '미기재'}</p>
         <p><strong>회사명:</strong> ${company || '없음'}</p>
         <p><strong>프로젝트 유형:</strong> ${project || '미선택'}</p>
         <p><strong>예산:</strong> ${budget || '미정'}</p>

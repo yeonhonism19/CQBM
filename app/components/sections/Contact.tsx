@@ -10,6 +10,7 @@ import * as z from 'zod'
 const contactSchema = z.object({
   name: z.string().min(2, '이름은 2자 이상이어야 합니다'),
   email: z.string().email('올바른 이메일 주소를 입력해주세요'),
+  phone: z.string().regex(/^[0-9-+() ]+$/, '올바른 전화번호 형식을 입력해주세요').optional(),
   company: z.string().optional(),
   project: z.string().optional(),
   budget: z.string().optional(),
@@ -167,13 +168,26 @@ const Contact = () => {
                   </div>
                 </div>
                 
-                <div>
-                  <input
-                    type="text"
-                    placeholder="회사명"
-                    {...register('company')}
-                    className="w-full bg-transparent border-b border-gray-600 py-3 focus:border-red-500 outline-none transition-colors placeholder-gray-500"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <input
+                      type="tel"
+                      placeholder="연락처"
+                      {...register('phone')}
+                      className="w-full bg-transparent border-b border-gray-600 py-3 focus:border-red-500 outline-none transition-colors placeholder-gray-500"
+                    />
+                    {errors.phone && (
+                      <p className="text-red-400 text-sm mt-1">{errors.phone.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="회사명"
+                      {...register('company')}
+                      className="w-full bg-transparent border-b border-gray-600 py-3 focus:border-red-500 outline-none transition-colors placeholder-gray-500"
+                    />
+                  </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
