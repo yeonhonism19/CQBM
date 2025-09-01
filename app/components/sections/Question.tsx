@@ -130,14 +130,13 @@ const Question = () => {
                 "col-span-12 md:col-span-6 row-span-2"  // 중간 가로
               ]
               
-              const randomRotate = [-2, 1, -1, 2, -1.5, 1][index] || 0
-              const randomDelay = index * 0.1
+              const randomDelay = [0.1, 0.3, 0.2, 0.4, 0.15, 0.25][index] || index * 0.1
               
               return (
                 <motion.div
                   key={`project-${project.slug}-${index}`}
                   className={`${gridClasses[index] || 'col-span-4 row-span-2'} group relative`}
-                  initial={{ opacity: 0, y: 50, rotate: randomRotate }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ 
                     opacity: 1, 
                     y: 0,
@@ -149,7 +148,6 @@ const Question = () => {
                   }}
                   whileHover={{ 
                     scale: 1.03,
-                    rotate: 0,
                     zIndex: 10,
                     transition: { duration: 0.3 }
                   }}
@@ -264,9 +262,9 @@ const Question = () => {
                           <motion.span 
                             className="inline-block px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium mb-3"
                             animate={{ 
-                              scale: hoveredProject === project.slug ? 1.05 : 1,
-                              rotate: hoveredProject === project.slug ? -2 : 0
+                              scale: hoveredProject === project.slug ? 1.05 : 1
                             }}
+                            transition={{ type: "spring", stiffness: 300 }}
                           >
                             {project.category}
                           </motion.span>
