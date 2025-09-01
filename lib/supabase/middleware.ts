@@ -16,21 +16,22 @@ export async function updateSession(request: NextRequest) {
 
   try {
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
         cookies: {
           getAll() {
             return request.cookies.getAll()
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-            supabaseResponse = NextResponse.next({
-              request,
+            cookiesToSet.forEach(({ name, value }) => {
+              // 쿠키 설정 시 옵션을 안전하게 처리
+              supabaseResponse.cookies.set({
+                name,
+                value,
+                ...getCookieOptions(request, name),
+              })
             })
-            cookiesToSet.forEach(({ name, value, options }) =>
-              supabaseResponse.cookies.set(name, value, options)
-            )
           },
         },
       }
@@ -44,4 +45,19 @@ export async function updateSession(request: NextRequest) {
   }
 
   return supabaseResponse
+}
+
+// 쿠키 옵션을 안전하게 처리하는 헬퍼 함수
+function getCookieOptions(request: NextRequest, cookieName: string): CookieOptions {
+  const isSecure = process.env.NODE_ENV === 'production'
+  const url = request.nextUrl
+  
+  return {
+    httpOnly: true,
+    secure: isSecure,
+    sameSite: 'lax' as const,
+    path: '/',
+    // Supabase 인증 쿠키는 1년 유효
+    maxAge: cookieName.includes('auth-token') ? 60 * 60 * 24 * 365 : undefined,
+  }
 }
