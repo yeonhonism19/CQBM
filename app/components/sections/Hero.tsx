@@ -69,11 +69,10 @@ const Hero = () => {
           {/* Main headline */}
           <div className="text-center mb-12">
             <motion.div variants={itemVariants} className="mb-8">
-              <h1 className="agency-text leading-none">
+              <h1 className="agency-text leading-tight">
                 WE CREATE
                 <br />
-                EXTRAORDINARY
-                <br />
+                <span className="block mb-4">EXTRAORDINARY</span>
                 <motion.span 
                   className="red-accent inline-block"
                   key={currentWordIndex}
