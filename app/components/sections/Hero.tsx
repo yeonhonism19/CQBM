@@ -72,7 +72,9 @@ const Hero = () => {
               <h1 className="agency-text leading-tight">
                 WE CREATE
                 <br />
-                <span className="block mb-4">EXTRAORDINARY</span>
+                EXTRA
+                <br />
+                <span className="block mb-4">ORDINARY</span>
                 <motion.span 
                   className="red-accent inline-block"
                   key={currentWordIndex}
