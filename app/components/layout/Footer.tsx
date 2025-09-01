@@ -41,7 +41,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {[
                 { label: 'Services', href: '/services' },
-                { label: 'Work', href: '#work' },
+                { label: 'Question', href: '/question' },
                 { label: 'About', href: '/about' },
                 { label: 'Contact', href: '#contact' },
                 { label: 'Blog', href: '/blog' },
@@ -64,25 +64,26 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-gray-400 mt-0.5" />
-                <div>
-                  <p className="text-gray-400">02-1234-5678</p>
-                  <p className="text-gray-400">010-1234-5678</p>
-                </div>
+                <a
+                  href="tel:+82-10-3736-4603"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  +82 10 3736 4603
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-gray-400 mt-0.5" />
                 <a
-                  href="mailto:contact@cqbm.co.kr"
+                  href="mailto:cqbm.kr@gmail.com"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  contact@cqbm.co.kr
+                  cqbm.kr@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
                 <p className="text-gray-400">
-                  서울특별시 강남구 테헤란로 123<br />
-                  크리에이티브빌딩 5층
+                  제주특별자치도 신촌리 605
                 </p>
               </li>
             </ul>
