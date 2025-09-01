@@ -104,8 +104,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm uppercase tracking-wider mb-1">Phone</p>
-                    <a href="tel:+82-2-1234-5678" className="text-xl hover:text-red-500 transition-colors">
-                      +82 2 1234 5678
+                    <a href="tel:+82-10-3736-4603" className="text-xl hover:text-red-500 transition-colors">
+                      +82 10 3736 4603
                     </a>
                   </div>
                 </div>
@@ -114,9 +114,8 @@ const Contact = () => {
               <div>
                 <h3 className="text-2xl font-bold mb-6 tracking-wide">OFFICE</h3>
                 <div className="space-y-2">
-                  <p className="text-gray-300">서울특별시 강남구</p>
-                  <p className="text-gray-300">테헤란로 123</p>
-                  <p className="text-gray-300">CQBM 빌딩 5층</p>
+                  <p className="text-gray-300">제주특별자치도</p>
+                  <p className="text-gray-300">신촌리 605</p>
                 </div>
               </div>
 

@@ -1,18 +1,31 @@
 'use client'
 
 import { motion, useAnimation, useInView } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const Hero = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const controls = useAnimation()
+  
+  // 타이핑 애니메이션을 위한 상태
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const words = ['Brands', 'Marketing', 'Advertising', 'Products']
 
   useEffect(() => {
     if (isInView) {
       controls.start('visible')
     }
   }, [isInView, controls])
+  
+  // 단어 변경 애니메이션
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % words.length)
+    }, 800) // 0.8초마다 변경 (빠른 템포)
+    
+    return () => clearInterval(interval)
+  }, [])
 
   const containerVariants = {
     hidden: {},
@@ -57,21 +70,26 @@ const Hero = () => {
           <div className="text-center mb-12">
             <motion.div variants={itemVariants} className="mb-8">
               <h1 className="agency-text leading-none">
-                WE SOLVE THE WORLD'S
+                WE CREATE
                 <br />
-                PROBLEMS WITH
+                EXTRAORDINARY
                 <br />
-                <span className="red-accent">CREATIVE</span>
-                <br />
-                QUESTIONS
+                <motion.span 
+                  className="red-accent inline-block"
+                  key={currentWordIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {words[currentWordIndex].toUpperCase()}
+                </motion.span>
               </h1>
             </motion.div>
 
             <motion.div variants={itemVariants} className="max-w-4xl mx-auto mb-8">
               <p className="text-2xl md:text-3xl font-light tracking-wide leading-relaxed text-gray-700">
-                질문으로 본질을 발견하고, 창의력을 실행으로 연결하여
-                <br className="hidden md:block" />
-                브랜드의 미래를 설계합니다
+                만족할 때 까지 창의적인 기획을 제안하고 실행합니다
               </p>
             </motion.div>
 
@@ -95,7 +113,7 @@ const Hero = () => {
               { en: 'ACTION', ko: '실행력', desc: '아이디어를 현실로 만드는 힘' },
               { en: 'COURAGE', ko: '도전정신', desc: '남들이 가지 않는 길을 시도' },
               { en: 'COLLABORATION', ko: '협력', desc: 'AI와 인간, 모두를 연결' },
-              { en: 'IMPACT', ko: '영향력', desc: '진짜 세상을 움직이는 결과' }
+              { en: 'IMPACT', ko: '영향력', desc: '진짜 가치를 만들어내는 결과' }
             ].map((value, index) => (
               <motion.div
                 key={value.en}

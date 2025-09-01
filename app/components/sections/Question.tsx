@@ -1,14 +1,15 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight, Play, ZoomIn } from 'lucide-react'
 import { useState } from 'react'
 import { projects } from '@/lib/data/projects'
 
 const Question = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
   
   const categories = [
     { id: 'all', label: '전체' },
@@ -92,10 +93,16 @@ const Question = () => {
               key={`project-${project.slug}-${index}`}
               variants={itemVariants}
               whileHover={{ y: -10 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer relative"
+              onMouseEnter={() => setHoveredProject(project.slug)}
+              onMouseLeave={() => setHoveredProject(null)}
             >
               <Link href={`/question/${project.slug}`}>
-                <div className="relative overflow-hidden rounded-2xl mb-4">
+                <motion.div 
+                  className="relative overflow-hidden rounded-2xl mb-4"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <div className="aspect-w-16 aspect-h-12 bg-gray-100">
                     {project.videoThumbnail ? (
                       <div className="relative w-full h-full">
@@ -103,40 +110,132 @@ const Question = () => {
                           src={project.thumbnail}
                           alt={project.title}
                           fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="object-cover transition-all duration-700 group-hover:scale-125 group-hover:rotate-2"
                         />
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
-                            <Play className="w-8 h-8 text-black ml-1" />
-                          </div>
-                        </div>
+                        <AnimatePresence>
+                          {hoveredProject === project.slug && (
+                            <motion.div 
+                              className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col items-center justify-center"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <motion.div 
+                                className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center mb-4"
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+                              >
+                                <Play className="w-10 h-10 text-black ml-1" />
+                              </motion.div>
+                              <motion.p 
+                                className="text-white text-sm font-medium"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                              >
+                                프로젝트 보기
+                              </motion.p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ) : (
-                      <Image
-                        src={project.thumbnail}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
+                      <>
+                        <Image
+                          src={project.thumbnail}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-all duration-700 group-hover:scale-125 group-hover:rotate-2"
+                        />
+                        <AnimatePresence>
+                          {hoveredProject === project.slug && (
+                            <motion.div 
+                              className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col items-center justify-center"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <motion.div 
+                                className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center mb-4"
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+                              >
+                                <ZoomIn className="w-10 h-10 text-black" />
+                              </motion.div>
+                              <motion.p 
+                                className="text-white text-sm font-medium"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                              >
+                                자세히 보기
+                              </motion.p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
                     )}
                   </div>
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium">
+                  
+                  {/* 카테고리 태그 애니메이션 */}
+                  <motion.div 
+                    className="absolute top-4 left-4"
+                    animate={{ 
+                      scale: hoveredProject === project.slug ? 1.1 : 1,
+                      rotate: hoveredProject === project.slug ? 5 : 0
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-lg">
                       {project.category}
                     </span>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-red-500 mb-1">
+                  </motion.div>
+                  
+                  {/* 추가 정보 오버레이 */}
+                  <AnimatePresence>
+                    {hoveredProject === project.slug && (
+                      <motion.div 
+                        className="absolute bottom-4 left-4 right-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                          <p className="text-xs text-gray-600">프로젝트 기간: 3개월</p>
+                          <p className="text-xs text-gray-600">성과: 브랜드 인지도 230% 상승</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+                
+                {/* 텍스트 영역 애니메이션 */}
+                <motion.div
+                  animate={{
+                    x: hoveredProject === project.slug ? 10 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.p 
+                    className="text-sm text-red-500 mb-1"
+                    animate={{
+                      color: hoveredProject === project.slug ? '#ef4444' : '#ef4444'
+                    }}
+                  >
                     {project.question || '어떻게 하면 더 나은 경험을 만들 수 있을까?'}
-                  </p>
+                  </motion.p>
                   <h3 className="text-xl font-bold mb-2 group-hover:text-red-600 transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-gray-600">
                     {project.client}
                   </p>
-                </div>
+                </motion.div>
               </Link>
             </motion.div>
           ))}
